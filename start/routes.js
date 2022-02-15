@@ -17,3 +17,6 @@
 const Route = use('Route')
 
 Route.on('/').render('welcome')
+Route.get('/posts', 'PostController.index').as('posts.index');
+Route.get('/posts/create', 'PostController.create').as('posts.create');
+Route.post('/posts/store', 'PostController.store').as('posts.store');
