@@ -21,6 +21,27 @@ class PostController {
       return response.route('posts.index')
     }
 
+    async edit({ request, view, response, params }){
+        const id = params.id
+        const post = await Post.find(id)
+
+        return view.render('posts.edit', {post: post})
+    }
+
+    async update({ request, view, response, params, session }){
+        const id = params.id
+        const post = await Post.find(id)
+
+        post.title = request.input('title')
+        post.content = request.input('content')
+
+        await post.save()
+
+        session.flash({ notification: 'Post Data Updated Successfully' })
+
+        return response.route('posts.index')
+    }
+
 }
 
 module.exports = PostController
