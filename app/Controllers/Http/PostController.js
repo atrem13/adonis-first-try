@@ -42,6 +42,15 @@ class PostController {
         return response.route('posts.index')
     }
 
+    async delete({ request, view, response, params, session }){
+        const id = params.id
+        const post = await Post.find(id)
+        await post.delete()
+
+        session.flash({ notification: 'Post Data Deleted Successfully' })
+        return response.route('posts.index')
+    }
+
 }
 
 module.exports = PostController
